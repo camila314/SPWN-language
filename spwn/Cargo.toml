@@ -1,0 +1,42 @@
+[package]
+name = "spwn"
+version = "0.0.7"
+authors = ["Spu7Nix <main@spu7nix.net>"]
+edition = "2021"
+description = "A language for Geometry Dash triggers"
+readme = "README.md"
+homepage = "https://spu7nix.net/spwn/"
+repository = "https://github.com/Spu7Nix/SPWN-language/"
+license-file = "LICENSE"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "spwn"
+path = "src/main.rs"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+parking_lot = { version = "0.11", features = ["wasm-bindgen"] }
+
+[dependencies]
+
+termcolor = "1.1.2"
+
+internment = "0.5.4"
+ariadne = "0.1.3" # errors
+
+
+parser = { path = "../parser" }
+shared = { path = "../shared" }
+errors = { path = "../errors" }
+editorlive = { path = "../editorlive" }
+compiler = { path = "../compiler" }
+optimizer = { path = "../optimizer" }
+docgen = { path = "../docgen" }
+pckp = { path = "../pckp" }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+levelstring = { path = "../levelstring" }
+
+# heat dir libraries -o wix/libraries.wxs -scom -frag -srd -sreg -gg -cg libraries -dr LIB_DIR -suid

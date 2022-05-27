@@ -1,0 +1,260 @@
+#[no_std, cache_output]
+
+type @comparison
+type @easing_type
+
+//comparison
+cmp = (id: @number) {
+    return @comparison::{id}
+}
+
+//easing type
+et = (id: @number) {
+    return @easing_type::{id}
+}
+
+//object key
+ok = (id: @number, pat: @pattern | @type_indicator) {
+    return @object_key::{id, pattern: pat}
+}
+
+
+
+@easing_type::_display_ = (self) {
+    return switch self.id {
+        ==0: "NONE",
+        ==1: "EASE_IN_OUT",
+        ==2: "EASE_IN",
+        ==3: "EASE_OUT",
+        ==4: "ELASTIC_IN_OUT",
+        ==5: "ELASTIC_IN",
+        ==6: "ELASTIC_OUT",
+        ==7: "BOUNCE_IN_OUT",
+        ==8: "BOUNCE_IN",
+        ==9: "BOUNCE_OUT",
+        ==10: "EXPONENTIAL_IN_OUT",
+        ==11: "EXPONENTIAL_IN",
+        ==12: "EXPONENTIAL_OUT",
+        ==13: "SINE_IN_OUT",
+        ==14: "SINE_IN",
+        ==15: "SINE_OUT",
+        ==16: "BACK_IN_OUT",
+        ==17: "BACK_IN",
+        ==18: "BACK_OUT",
+        else: $._display_(self)
+    }
+}
+
+@comparison::_display_ = (self) {
+    return switch self.id {
+        ==0: "EQUAL_TO",
+        ==1: "LARGER_THAN",
+        ==2: "SMALLER_THAN",
+        else: $._display_(self)
+    }
+}
+
+return {
+    easing_types : {
+        NONE : et(0),
+        EASE_IN_OUT : et(1),
+        EASE_IN : et(2),
+        EASE_OUT : et(3),
+        ELASTIC_IN_OUT : et(4),
+        ELASTIC_IN : et(5),
+        ELASTIC_OUT : et(6),
+        BOUNCE_IN_OUT : et(7),
+        BOUNCE_IN : et(8),
+        BOUNCE_OUT : et(9),
+        EXPONENTIAL_IN_OUT : et(10),
+        EXPONENTIAL_IN : et(11),
+        EXPONENTIAL_OUT : et(12),
+        SINE_IN_OUT : et(13),
+        SINE_IN : et(14),
+        SINE_OUT : et(15),
+        BACK_IN_OUT : et(16),
+        BACK_IN : et(17),
+        BACK_OUT : et(18)
+    },
+
+    comparisons : {
+        EQUAL_TO : cmp(0),
+        LARGER_THAN : cmp(1),
+        SMALLER_THAN : cmp(2)
+    },
+
+    colors: {
+        BG: 1000c,
+        GROUND: 1001c,
+        LINE: 1002c,
+        _3DLINE: 1003c,
+        OBJECT: 1004c,
+        GROUND2: 1009c,
+    },
+    
+    obj_ids: {
+        triggers: {
+            MOVE: 901,
+            ROTATE: 1346,
+            ANIMATE: 1585,
+            PULSE: 1006,
+            COUNT: 1611,
+            ALPHA: 1007,
+            TOGGLE: 1049,
+            FOLLOW: 1347,
+            SPAWN: 1268,
+            STOP: 1616,
+            TOUCH: 1595,
+            INSTANT_COUNT: 1811,
+            ON_DEATH: 1812,
+            FOLLOW_PLAYER_Y: 1814,
+            COLLISION: 1815,
+            PICKUP: 1817,
+            BG_EFFECT_ON: 1818,
+            BG_EFFECT_OFF: 1819,
+            SHAKE: 1520,
+            COLOR: 899,
+            ENABLE_TRAIL: 32,
+            DISABLE_TRAIL: 33,
+            HIDE: 1612,
+            SHOW: 1613,
+        },
+        portals: {
+            GRAVITY_DOWN: 10,
+            GRAVITY_UP: 11,
+            CUBE: 12,
+            SHIP: 13,
+            BALL: 47,
+            UFO: 111,
+            WAVE: 660,
+            ROBOT: 745,
+            SPIDER: 1331,
+            MIRROR_ON: 45,
+            MIRROR_OFF: 46,
+            SIZE_NORMAL: 99,
+            SIZE_MINI: 101,
+            DUAL_ON: 286,
+            DUAL_OFF: 287,
+            TELEPORT: 747,
+            SPEED_YELLOW: 200,
+            SPEED_BLUE: 201,
+            SPEED_GREEN: 202,
+            SPEED_PINK: 203,
+            SPEED_RED: 1334,
+        },
+        special: {
+            COLLISION_BLOCK: 1816,
+
+            J_BLOCK: 1813,
+            H_BLOCK: 1859,
+            D_BLOCK: 1755,
+            S_BLOCK: 1829,
+
+            ITEM_DISPLAY: 1615,
+            TEXT: 914,
+
+            USER_COIN: 1329,
+        }
+    },
+
+    obj_props : {
+        OBJ_ID : ok(1, @number),
+        X : ok(2, @number),
+        Y : ok(3, @number),
+        HORIZONTAL_FLIP : ok(4, @bool),
+        VERTICAL_FLIP : ok(5, @bool),
+        ROTATION : ok(6, @number),
+        TRIGGER_RED : ok(7, @number),
+        TRIGGER_GREEN : ok(8, @number),
+        TRIGGER_BLUE : ok(9, @number),
+        DURATION : ok(10, @number),
+        TOUCH_TRIGGERED : ok(11, @bool),
+        PORTAL_CHECKED : ok(13, @bool),
+        PLAYER_COLOR_1 : ok(15, @bool),
+        PLAYER_COLOR_2 : ok(16, @bool),
+        BLENDING : ok(17, @bool),
+        EDITOR_LAYER_1 : ok(20, @number),
+        COLOR : ok(21, @color),
+        COLOR_2 : ok(22, @color),
+        TARGET_COLOR : ok(23, @color),
+        Z_LAYER : ok(24, @number),
+        Z_ORDER : ok(25, @number),
+        MOVE_X : ok(28, @number),
+        MOVE_Y : ok(29, @number),
+        EASING : ok(30, @number),
+        TEXT : ok(31, @string),
+        SCALING : ok(32, @number),
+        GROUP_PARENT : ok(34, @bool),
+        OPACITY : ok(35, @number),
+        HVS_ENABLED : ok(41, @bool),
+        COLOR_2_HVS_ENABLED : ok(42, @bool),
+        HVS : ok(43, @string),
+        COLOR_2_HVS : ok(44, @string),
+        FADE_IN : ok(45, @number),
+        HOLD : ok(46, @number),
+        FADE_OUT : ok(47, @number),
+        PULSE_HSV : ok(48, @bool),
+        COPIED_COLOR_HVS : ok(49, @string),
+        COPIED_COLOR_ID : ok(50, @color),
+        TARGET : ok(51, @color | @group | @trigger_function | @number),
+        TARGET_TYPE : ok(52, @number),
+        YELLOW_TELEPORTATION_PORTAL_DISTANCE: ok(54, @number),
+        ACTIVATE_GROUP : ok(56, @bool),
+        GROUPS : ok(57, [@group] | @group),
+        LOCK_TO_PLAYER_X : ok(58, @bool),
+        LOCK_TO_PLAYER_Y : ok(59, @bool),
+        COPY_OPACITY : ok(60, @bool),
+        EDITOR_LAYER_2 : ok(61, @number),
+        SPAWN_TRIGGERED : ok(62, @bool),
+        SPAWN_DURATION : ok(63, @number | @epsilon),
+        DONT_FADE : ok(64, @bool),
+        MAIN_ONLY : ok(65, @bool),
+        DETAIL_ONLY : ok(66, @bool),
+        DONT_ENTER : ok(67, @bool),
+        ROTATE_DEGREES : ok(68, @number),
+        TIMES_360 : ok(69, @number),
+        LOCK_OBJECT_ROTATION : ok(70, @bool),
+        FOLLOW : ok(71, @group),
+        CENTER : ok(71, @group),
+        TARGET_POS : ok(71, @group),
+        X_MOD : ok(72, @number),
+        Y_MOD : ok(73, @number),
+        STRENGTH : ok(75, @number),
+        ANIMATION_ID : ok(76, @number),
+        COUNT : ok(77, @number),
+        SUBTRACT_COUNT : ok(78, @number),
+        PICKUP_MODE : ok(79, @number),
+        ITEM : ok(80, @item | @block),
+        BLOCK_A : ok(80, @block),
+        HOLD_MODE : ok(81, @bool),
+        TOGGLE_MODE : ok(82, @number),
+        INTERVAL : ok(84, @number),
+        EASING_RATE : ok(85, @number),
+        EXCLUSIVE : ok(86, @bool),
+        MULTI_TRIGGER : ok(87, @bool),
+        COMPARISON : ok(88, @number),
+        DUAL_MODE : ok(89, @bool),
+        SPEED : ok(90, @number),
+        DELAY : ok(91, @number),
+        Y_OFFSET : ok(92, @number),
+        ACTIVATE_ON_EXIT : ok(93, @bool),
+        DYNAMIC_BLOCK : ok(94, @bool),
+        BLOCK_B : ok(95, @block),
+        GLOW_DISABLED : ok(96, @bool),
+        ROTATION_SPEED : ok(97, @number),
+        DISABLE_ROTATION : ok(98, @bool),
+        COUNT_MULTI_ACTIVATE : ok(104, @bool),
+        USE_TARGET : ok(100, @bool),
+        TARGET_POS_AXES : ok(101, @number),
+        EDITOR_DISABLE : ok(102, @bool),
+        HIGH_DETAIL : ok(103, @bool),
+        MAX_SPEED : ok(105, @number),
+        RANDOMIZE_START : ok(106, @bool),
+        ANIMATION_SPEED : ok(107, @number),
+        LINKED_GROUP : ok(108, @number),
+        ACTIVE_TRIGGER: ok(36, @bool),
+    },
+
+    PI: $.acos(-1),
+    EULER: $.exp(1),
+}
